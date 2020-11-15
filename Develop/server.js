@@ -1,22 +1,32 @@
-// requiring modules this application depends on
-const express = require("express");
+// Dependencies
+// =============================================================
+var express = require("express");
+// const path = require("path")
 
-// invoking express and calling it app
-const app = express();
-//setting up the port for both deployment environment and localhost
-const PORT = process.env.PORT || 3000;
 
-// body parsers for json and urlencoded load files
-app.use(express.urlencoded({extended: true}));
-app.use(express.json);
+// Sets up the Express App
+// =============================================================
+var app = express();
+var PORT = process.env.PORT || 3000;
 
-require("./routes/api-routes")(app)
+// Sets up the Express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+//serving static files
+app.use(express.static('public'))
+
+// Routes
+// =============================================================
+
+require("./routes/api-routes")(app);
 require("./routes/html-routes")(app);
 
-// listening to the port set above
-app.listen(PORT, () => {
-    console.log("This server is running on port", PORT)
-})
 
 
+// Starts the server to begin listening
+// =============================================================
+app.listen(PORT, function() {
+  console.log("App listening on PORT " + PORT);
+});
 
