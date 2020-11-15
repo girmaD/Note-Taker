@@ -18,17 +18,43 @@ module.exports = function(app) {
 
     app.post("/api/notes", (req, res) => {
         let newnote = req.body;
+        //taken from https://gist.github.com/gordonbrander/2230317 
+        var ID = function () {
+            // Math.random should be unique because of its seeding algorithm.
+            // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+            // after the decimal.
+            return '_' + Math.random().toString(36).substr(2, 9);
+        }    
+        let saveNote = {
+            id: ID(),
+            title: newnote.title,
+            text: newnote.text
+        }
 
         fs.readFile('./db/db.json', function (err, data) {
             if(err) throw err;
-            var json = JSON.parse(data);
-            json.push(newnote);    
-            fs.writeFile('./db/db.json', JSON.stringify(json), function(err){
+            var savedNote = JSON.parse(data);
+            savedNote.push(saveNote);    
+            fs.writeFile('./db/db.json', JSON.stringify(savedNote), function(err){
               if (err) throw err;
-              console.log('new note effectively appeneded to the db.json file');
+              console.log('new note effectively appeneded to an array in the db.json file');
             });
         })
+        res.json(saveNote)      
+    })
 
-        res.send(newnote)      
+    app.delete("/api/notes/:id", (req, res) => {
+        const { id } = req.params;
+        let savedNote;
+        fs.readFile('./db/db.json', function (err, data) {
+            if(err) throw err;
+            savedNote = JSON.parse(data);
+            savedNote.splice(savedNote.findIndex(ele => ele.id === id),1);
+            fs.writeFile('./db/db.json', JSON.stringify(savedNote), function(err){
+                if (err) throw err;
+                console.log('not deleted by matching id');
+            });
+        })
+        res.send(savedNote)
     })
 }
