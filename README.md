@@ -4,6 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 * View the [Github Repo](https://github.com/girmaD/Note-Taker)
+* View the [Deployed App](https://limitless-falls-73421.herokuapp.com/)
 
 
 ## Description
@@ -25,7 +26,7 @@
  * npm i -> will insall the dependecies
 
 ## How To Use The App
-- launch the app either on the terminal or heroku url
+- launch the app either on the terminal or [heroku](https://limitless-falls-73421.herokuapp.com/)
 - write note title and note text and click the save button
 - to retrieve saved notes - click the lists on the left side of the page.
 - to write a new note clike the pen icon on the top right corner
