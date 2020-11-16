@@ -1,7 +1,6 @@
 // Dependencies
 // =============================================================
 var express = require("express");
-// const path = require("path")
 
 
 // Sets up the Express App
@@ -16,17 +15,14 @@ app.use(express.json());
 //serving static files
 app.use(express.static('public'))
 
-// Routes
+// Routes - as imported from files shown below
 // =============================================================
-
 require("./routes/api-routes")(app);
 require("./routes/html-routes")(app);
-
-
 
 // Starts the server to begin listening
 // =============================================================
 app.listen(PORT, function() {
-  console.log("App listening on PORT " + PORT);
+  console.log("Server running on port", PORT);
 });
 
